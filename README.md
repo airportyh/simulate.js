@@ -13,6 +13,7 @@ Credits and Inspiration
 
 - <http://lifescaler.com/2008/04/simulating-mouse-clicks-in-javascript/>
 - jquery.simulate.js - <https://github.com/jquery/jquery-ui/blob/master/tests/jquery.simulate.js>
+- YUI `event-simulate` - <http://yuilibrary.com/yui/docs/api/files/event-simulate_js_event-simulate.js.html#l2>
 
 The MIT License (MIT)
 ---------------------
