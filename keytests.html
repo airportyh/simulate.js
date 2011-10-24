@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+	
+</head>
+<body>
+<textarea id="textarea"></textarea>
+<script>
+
+var textarea = document.getElementById('textarea')
+textarea.addEventListener('keypress', function(e){
+	console.log('PRESS: keyCode: ' + e.keyCode + ', charCode: ' + e.charCode)
+}, false)
+textarea.addEventListener('keydown', function(e){
+	console.log('DOWN keyCode: ' + e.keyCode + ', charCode: ' + e.charCode)
+}, false)
+textarea.addEventListener('keyup', function(e){
+	console.log('UP keyCode: ' + e.keyCode + ', charCode: ' + e.charCode)
+}, false)
+</script>
+</body>
+</html>
