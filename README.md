@@ -1,5 +1,5 @@
-`simulate.js`
-=============
+simulate.js
+===========
 
 Small footprint Javascript library for simulating DOM events.
 
