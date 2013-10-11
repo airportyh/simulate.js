@@ -106,7 +106,7 @@ if (typeof window !== 'undefined'){
 }else if (typeof module !== 'undefined'){
     module.exports = Simulate
 }else if (typeof define !== 'undefined'){
-    define(function(){ return Simulate }
+    define(function(){ return Simulate })
 }
 
 }()
