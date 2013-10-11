@@ -101,10 +101,10 @@ for (var i = events.length; i--;){
     }(event))
 }
 
-if (typeof window !== 'undefined'){
-    window.Simulate = Simulate
-}else if (typeof module !== 'undefined'){
+if (typeof module !== 'undefined'){
     module.exports = Simulate
+}else if (typeof window !== 'undefined'){
+    window.Simulate = Simulate
 }else if (typeof define !== 'undefined'){
     define(function(){ return Simulate })
 }
