@@ -49,15 +49,28 @@ var Simulate = {
     }
 }
 
-Simulate.keypress = function(element, keys){
-    for (var i = 0, len = keys.length; i < len; i++){
-        var chr = keys.charAt(i),
-            charCode = chr.charCodeAt(0)
-        this.keyEvent(element, 'keypress', {
-            keyCode: charCode,
-            charCode: charCode
-        })
-    }
+Simulate.keypress = function(element, chr){
+    var charCode = chr.charCodeAt(0)
+    this.keyEvent(element, 'keypress', {
+        keyCode: charCode,
+        charCode: charCode
+    })
+}
+
+Simulate.keydown = function(element, chr){
+    var charCode = chr.charCodeAt(0)
+    this.keyEvent(element, 'keydown', {
+        keyCode: charCode,
+        charCode: charCode
+    })
+}
+
+Simulate.keyup = function(element, chr){
+    var charCode = chr.charCodeAt(0)
+    this.keyEvent(element, 'keyup', {
+        keyCode: charCode,
+        charCode: charCode
+    })
 }
 
 var events = [

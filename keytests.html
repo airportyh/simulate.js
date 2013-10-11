@@ -8,13 +8,20 @@
 <script>
 
 var textarea = document.getElementById('textarea')
-textarea.addEventListener('keypress', function(e){
+function addListener(elm, evt, cb){
+	if (elm.addEventListener)
+		elm.addEventListener(evt, cb, false)
+	else
+		elm.attachEvent('on' + evt, cb)
+}
+
+addListener(textarea, 'keypress', function(e){
 	console.log('PRESS: keyCode: ' + e.keyCode + ', charCode: ' + e.charCode)
 }, false)
-textarea.addEventListener('keydown', function(e){
+addListener(textarea, 'keydown', function(e){
 	console.log('DOWN keyCode: ' + e.keyCode + ', charCode: ' + e.charCode)
 }, false)
-textarea.addEventListener('keyup', function(e){
+addListener(textarea, 'keyup', function(e){
 	console.log('UP keyCode: ' + e.keyCode + ', charCode: ' + e.charCode)
 }, false)
 </script>

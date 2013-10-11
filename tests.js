@@ -38,7 +38,7 @@ describe('simulate.js', function(){
             }(events[i])
         }
     })
-    it('simulates key events', function(){
+    it('simulates keypress events', function(){
         var onKeyPress = jasmine.createSpy('onKeyPress')
         $(input).keypress(onKeyPress)
         Simulate.keypress(input, 'h')
