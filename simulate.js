@@ -101,6 +101,12 @@ for (var i = events.length; i--;){
     }(event))
 }
 
-window.Simulate = Simulate
+if (typeof window !== 'undefined'){
+    window.Simulate = Simulate
+}else if (typeof module !== 'undefined'){
+    module.exports = Simulate
+}else if (typeof define !== 'undefined'){
+    define(function(){ return Simulate }
+}
 
 }()
