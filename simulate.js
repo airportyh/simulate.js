@@ -78,6 +78,7 @@ var events = [
     'focus',
     'blur',
     'dblclick',
+    'input',
     'change',
     'mousedown',
     'mousemove',
