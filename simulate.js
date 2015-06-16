@@ -8,13 +8,18 @@ function extend(dst, src){
 }
     
 var Simulate = {
-    event: function(element, eventName){
+    event: function(element, eventName, bubbles, cancelable){
+        bubbles = bubbles || bubbles === undefined;
+        cancelable = cancelable || cancelable === undefined;
+
         if (document.createEvent) {
             var evt = document.createEvent("HTMLEvents")
-            evt.initEvent(eventName, true, true )
+            evt.initEvent(eventName, bubbles, cancelable)
             element.dispatchEvent(evt)
         }else{
             var evt = document.createEventObject()
+            evt.bubbles = bubbles; // Does this actually work?
+            evt.cancelable = cancelable; // Does this actually work?
             element.fireEvent('on' + eventName,evt)
         }
     },
@@ -71,6 +76,14 @@ Simulate.keyup = function(element, chr){
         keyCode: charCode,
         charCode: charCode
     })
+}
+
+Simulate.mouseenter = function(element) {
+    this.event(element, 'mouseenter', false, false);
+}
+
+Simulate.mouseleave = function(element) {
+    this.event(element, 'mouseleave', false, false);
 }
 
 var events = [
