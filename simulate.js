@@ -78,42 +78,51 @@ Simulate.keyup = function(element, chr){
     })
 }
 
-Simulate.mouseenter = function(element) {
-    this.event(element, 'mouseenter', false, false);
+function createMethods(events, bubbles, cancelable) {
+    for (var i = events.length; i--;) {
+        var event = events[i]
+        Simulate[event] = (function(evt) {
+            return function(element) {
+                this.event(element, evt, bubbles, cancelable)
+            }
+        }(event))
+    }
 }
 
-Simulate.mouseleave = function(element) {
-    this.event(element, 'mouseleave', false, false);
-}
-
-var events = [
+createMethods([
     'click',
-    'focus',
-    'blur',
     'dblclick',
-    'input',
-    'change',
     'mousedown',
     'mousemove',
     'mouseout',
     'mouseover',
     'mouseup',
+    'submit'
+], true, true)
+
+createMethods([
+    'input',
+    'change'
+], true, false)
+
+createMethods([
+    'mouseenter',
+    'mouseleave',
+    'focus',
+    'blur',
     'resize',
     'scroll',
     'select',
-    'submit',
     'load',
-    'unload'
-]
-
-for (var i = events.length; i--;){
-    var event = events[i]
-    Simulate[event] = (function(evt){
-        return function(element){
-            this.event(element, evt)
-        }
-    }(event))
-}
+    'unload',
+    'play',
+    'pause',
+    'ended',
+    'volumechange',
+    'stalled',
+    'timeupdate',
+    'loadeddata'
+], false, false)
 
 if (typeof module !== 'undefined'){
     module.exports = Simulate
