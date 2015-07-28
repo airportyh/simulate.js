@@ -1,3 +1,7 @@
+var addListener = window.addEventListener ?
+    function(node, evt, cb){ node.addEventListener(evt, cb, false) } :
+    function(node, evt, cb){ node.attachEvent('on' + evt, cb) }
+
 describe('simulate.js', function(){
     var input, a
     beforeEach(function(){
@@ -10,33 +14,57 @@ describe('simulate.js', function(){
         $(input).remove()
         $(a).remove()
     })
-    it('simulates all events', function(){
-        var events = [
+
+    function testEvents(events, bubbles, cancelable) {
+        for (var i = events.length; i--;){
+            !function(event){
+                var spy = jasmine.createSpy(event)
+                addListener(input, event, spy);
+                Simulate[event](input)
+                expect(spy).toHaveBeenCalled()
+                expect(spy.calls[0].args[0].bubbles).toBe(bubbles);
+                expect(spy.calls[0].args[0].cancelable).toBe(cancelable);
+            }(events[i])
+        }
+    }
+
+    it('simulates all bubbling, cancelable events', function(){
+        testEvents([
             'click',
-            'focus',
-            'blur',
             'dblclick',
-            'change',
             'mousedown',
             'mousemove',
             'mouseout',
             'mouseover',
             'mouseup',
+            'submit'
+        ], true, true)
+    })
+    it('simulates all bubbling, non-cancelable events', function(){
+        testEvents([
+            'input',
+            'change'
+        ], true, false)
+    })
+    it('simulates all non-bubbling, non-cancelable events', function(){
+        testEvents([
+            'mouseenter',
+            'mouseleave',
+            'focus',
+            'blur',
             'resize',
             'scroll',
             'select',
-            'submit',
             'load',
-            'unload'
-        ]
-        for (var i = events.length; i--;){
-            !function(event){
-                var spy = jasmine.createSpy(event)
-                $(input)[event](spy)
-                Simulate[event](input)
-                expect(spy).toHaveBeenCalled()
-            }(events[i])
-        }
+            'unload',
+            'play',
+            'pause',
+            'ended',
+            'volumechange',
+            'stalled',
+            'timeupdate',
+            'loadeddata'
+        ], false, false)
     })
     it('simulates keypress events', function(){
         var onKeyPress = jasmine.createSpy('onKeyPress')
