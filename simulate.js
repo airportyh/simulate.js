@@ -6,7 +6,7 @@ function extend(dst, src){
         dst[key] = src[key]
     return src
 }
-    
+
 var Simulate = {
     event: function(element, eventName, bubbles, cancelable){
         bubbles = bubbles || bubbles === undefined;
@@ -18,8 +18,8 @@ var Simulate = {
             element.dispatchEvent(evt)
         }else{
             var evt = document.createEventObject()
-            evt.bubbles = bubbles; // Does this actually work?
-            evt.cancelable = cancelable; // Does this actually work?
+            evt.bubbles = bubbles;
+            evt.cancelable = cancelable;
             element.fireEvent('on' + eventName,evt)
         }
     },
@@ -102,7 +102,9 @@ createMethods([
 
 createMethods([
     'input',
-    'change'
+    'change',
+    'focusin',
+    'focusout'
 ], true, false)
 
 createMethods([

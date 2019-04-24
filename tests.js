@@ -43,7 +43,9 @@ describe('simulate.js', function(){
     it('simulates all bubbling, non-cancelable events', function(){
         testEvents([
             'input',
-            'change'
+            'change',
+            'focusin',
+            'focusout'
         ], true, false)
     })
     it('simulates all non-bubbling, non-cancelable events', function(){
@@ -84,6 +86,6 @@ describe('simulate.js', function(){
         expect(onKeyPress.callCount).toBe(5)
     })
     it('simulates mouse events', function(){
-        
+
     })
 })
