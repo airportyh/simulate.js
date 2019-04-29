@@ -1,6 +1,6 @@
 {
   "name": "simulate",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Small footprint Javascript library for simulating DOM events.",
   "main": "simulate.js",
   "scripts": {
