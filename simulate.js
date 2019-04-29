@@ -6,15 +6,20 @@ function extend(dst, src){
         dst[key] = src[key]
     return src
 }
-    
+
 var Simulate = {
-    event: function(element, eventName){
+    event: function(element, eventName, bubbles, cancelable){
+        bubbles = bubbles || bubbles === undefined;
+        cancelable = cancelable || cancelable === undefined;
+
         if (document.createEvent) {
             var evt = document.createEvent("HTMLEvents")
-            evt.initEvent(eventName, true, true )
+            evt.initEvent(eventName, bubbles, cancelable)
             element.dispatchEvent(evt)
         }else{
             var evt = document.createEventObject()
+            evt.bubbles = bubbles;
+            evt.cancelable = cancelable;
             element.fireEvent('on' + eventName,evt)
         }
     },
@@ -73,36 +78,53 @@ Simulate.keyup = function(element, chr){
     })
 }
 
-var events = [
+function createMethods(events, bubbles, cancelable) {
+    for (var i = events.length; i--;) {
+        var event = events[i]
+        Simulate[event] = (function(evt) {
+            return function(element) {
+                this.event(element, evt, bubbles, cancelable)
+            }
+        }(event))
+    }
+}
+
+createMethods([
     'click',
-    'focus',
-    'blur',
-    'focusin',
-    'focusout',
     'dblclick',
-    'input',
-    'change',
     'mousedown',
     'mousemove',
     'mouseout',
     'mouseover',
     'mouseup',
+    'submit'
+], true, true)
+
+createMethods([
+    'input',
+    'change',
+    'focusin',
+    'focusout'
+], true, false)
+
+createMethods([
+    'mouseenter',
+    'mouseleave',
+    'focus',
+    'blur',
     'resize',
     'scroll',
     'select',
-    'submit',
     'load',
-    'unload'
-]
-
-for (var i = events.length; i--;){
-    var event = events[i]
-    Simulate[event] = (function(evt){
-        return function(element){
-            this.event(element, evt)
-        }
-    }(event))
-}
+    'unload',
+    'play',
+    'pause',
+    'ended',
+    'volumechange',
+    'stalled',
+    'timeupdate',
+    'loadeddata'
+], false, false)
 
 if (typeof module !== 'undefined'){
     module.exports = Simulate
