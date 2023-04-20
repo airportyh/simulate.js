@@ -17,10 +17,11 @@ var Simulate = {
             evt.initEvent(eventName, bubbles, cancelable)
             element.dispatchEvent(evt)
         }else{
-            var evt = document.createEventObject()
-            evt.bubbles = bubbles;
-            evt.cancelable = cancelable;
-            element.fireEvent('on' + eventName,evt)
+            const event = new Event(eventName, {
+                bubbles: bubbles,
+                cancelable: cancelable
+            })
+            element.dispatchEvent(event)
         }
     },
     keyEvent: function(element, type, options){
