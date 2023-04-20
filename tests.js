@@ -79,11 +79,11 @@ describe('simulate.js', function(){
         expect(onKeyPress.mostRecentCall.args[0].charCode)
             .toBe(104) // 'h'
     })
-    it('simulates key events', function(){
+    it('simulates multiple key events', function(){
         var onKeyPress = jasmine.createSpy('onKeyPress')
         $(input).keypress(onKeyPress)
         Simulate.keypress(input, 'hello')
-        expect(onKeyPress.callCount).toBe(1)
+        expect(onKeyPress.callCount).toBe(5)
     })
     it('simulates mouse events', function(){
 
